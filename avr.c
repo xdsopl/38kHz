@@ -31,21 +31,24 @@ uint8_t crc8_update(uint8_t crc, uint8_t data)
 __attribute__((noreturn))
 void main()
 {
+	// hit the turbo switch, 1MHz->8MHz
+	CLKPR = (1 << CLKPCE); CLKPR = 0;
+
 	// toggle OC0A, CTC mode
 	TCCR0A = (1<<COM0A0) | (1<<WGM01);
 
 	// fsck/1
 	TCCR0B = (1<<CS00);
 
-	// ~38kHz
-	OCR0A = 209;
+	// ~38kHz at 8MHz
+	OCR0A = 105;
 
 	// enable output
 	DDRD |= 1 << 6;
 
-	// 2khz baud rate at 16MHz
-	UBRR0H = 1;
-	UBRR0L = 243;
+	// 2khz baud rate at 8MHz
+	UBRR0H = 0;
+	UBRR0L = 249;
 
 	// set to 8 data bits, 1 stop bit
 	UCSR0C = (1<<UCSZ01) | (1<<UCSZ00);

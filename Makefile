@@ -1,5 +1,5 @@
 
-CFLAGS = -DDEBUG=1 -std=c99 -W -Wall -Os -ffreestanding -fwhole-program -mmcu=atmega328p -DF_CPU=16000000UL
+CFLAGS = -DDEBUG=1 -std=c99 -W -Wall -Os -ffreestanding -fwhole-program -mmcu=atmega328p -DF_CPU=8000000UL
 AFLAGS = -c avrispmkII -P usb -p m328p
 
 .PHONY: all
