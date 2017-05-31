@@ -57,6 +57,9 @@ void main()
 	while (1) {
 		// enable UART tx
 		UCSR0B = (1<<TXEN0);
+		// allow AGC to settle
+		put_byte(0);
+		// give receiver some time to switch
 		_delay_ms(5);
 		uint8_t crc = 0;
 		put_byte(addr);
