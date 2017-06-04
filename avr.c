@@ -47,8 +47,7 @@ void main()
 	DDRD |= 1 << 6;
 
 	// ~2400hz baud rate at 8MHz
-	UBRR0H = 0;
-	UBRR0L = 207;
+	UBRR0 = 207;
 
 	// set to 8 data bits, 1 stop bit
 	UCSR0C = (1<<UCSZ01) | (1<<UCSZ00);
