@@ -58,10 +58,10 @@ void main()
 	while (1) {
 		// wait until burst
 		for (int i = 0; i < 5000; ++i)
-			if (PINB & (1<<0))
+			if (PIND & (1<<0))
 				i = 0;
 		PORTB |= (1<<1);
-		while (!(PINB & (1<<0)));
+		while (!(PIND & (1<<0)));
 		PORTB &= ~(1<<1);
 
 		// enable UART rx
