@@ -52,17 +52,12 @@ void main()
 	// enable UART tx
 	UCSR0B = (1<<TXEN0);
 
-	// enable debug output pin
-	DDRB |= 1 << 1;
-
 	while (1) {
 		// wait until burst
 		for (int i = 0; i < 5000; ++i)
 			if (PIND & (1<<0))
 				i = 0;
-		PORTB |= (1<<1);
 		while (!(PIND & (1<<0)));
-		PORTB &= ~(1<<1);
 
 		// enable UART rx
 		UCSR0B |= (1<<RXEN0);
