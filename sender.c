@@ -55,7 +55,7 @@ void main()
 	// set to 8 data bits, 1 stop bit
 	UCSR0C = (1<<UCSZ01) | (1<<UCSZ00);
 
-	uint8_t addr = 42, left = 1, right = 128;
+	uint8_t addr = 42, left = 'A', right = 'z';
 	while (1) {
 		// enable UART tx
 		UCSR0B = (1<<TXEN0);
@@ -71,8 +71,8 @@ void main()
 		put_byte(right);
 		crc = crc8_update(crc, right);
 		put_byte(crc);
-		left = (left<<1) | (left>>7);
-		right = (right>>1) | (right<<7);
+		left = left < 'Z' ? left+1 : 'A';
+		right = 'a' < right ? right-1 : 'z';
 		// disable UART tx when done
 		UCSR0B = 0;
 		for (uint8_t i = 5+(15&rand()); i; --i)
