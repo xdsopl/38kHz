@@ -3,10 +3,13 @@ CFLAGS = -DDEBUG=1 -std=c99 -W -Wall -Os -ffreestanding -fwhole-program -mmcu=at
 AFLAGS = -c avrispmkII -P usb -p m328p
 
 .PHONY: all
-all: sender.hex
+all: sender.hex receiver.hex
 
-.PHONY: flash
-flash: sender.flash
+.PHONY: sender
+sender: sender.flash
+
+.PHONY: receiver
+receiver: receiver.flash
 
 %.hex: %.bin
 	avr-objcopy -O ihex -I binary -R .eeprom $< $@
