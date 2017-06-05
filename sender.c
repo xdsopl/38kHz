@@ -31,6 +31,9 @@ uint8_t crc8_update(uint8_t crc, uint8_t data)
 __attribute__((noreturn))
 void main()
 {
+	// wait 200ms for voltage to raise
+	_delay_ms(25);
+
 	// hit the turbo switch, 1MHz->8MHz
 	CLKPR = (1 << CLKPCE); CLKPR = 0;
 
