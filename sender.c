@@ -46,8 +46,8 @@ void main()
 	// ~38kHz at 8MHz
 	OCR0A = 105;
 
-	// enable output
-	DDRD |= 1 << 6;
+	// enable carrier and TX pin as output
+	DDRD |= (1<<6) | (1<<1);
 
 	// ~2400hz baud rate at 8MHz
 	UBRR0 = 207;
@@ -57,12 +57,16 @@ void main()
 
 	uint8_t addr = 42, left = 'A', right = 'z';
 	while (1) {
+		// allow AGC to settle by sending burst
+		PORTD &= ~(1<<1);
+		_delay_ms(9);
+
+		// give receiver some time to switch
+		PORTD |= (1<<1);
+		_delay_ms(1);
+
 		// enable UART tx
 		UCSR0B = (1<<TXEN0);
-		// allow AGC to settle
-		put_byte(0);
-		// give receiver some time to switch
-		_delay_ms(5);
 		uint8_t crc = 0;
 		put_byte(addr);
 		crc = crc8_update(crc, addr);
